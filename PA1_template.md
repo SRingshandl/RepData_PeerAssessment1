@@ -31,7 +31,7 @@ sum_per_day <- tapply(data_no_NAs$steps, data_no_NAs$date, sum)
 hist(sum_per_day, main = "Histogram of steps per day", xlab = "Steps per day")
 ```
 
-![](PA1_template_files/figure-html/q1_part1-1.png)<!-- -->
+![](PA1_template_files/figure-html/Histogram_of_steps_per_day-1.png)<!-- -->
 
 Next is the report on the mean value and the median of steps done per day.
 
@@ -66,7 +66,7 @@ plot(names(interval_mean_steps), interval_mean_steps,
      ylab = "mean steps during interval")
 ```
 
-![](PA1_template_files/figure-html/q2_part1-1.png)<!-- -->
+![](PA1_template_files/figure-html/Mean_steps_per_interval-1.png)<!-- -->
 
 To answer the question which 5 minute interval contains the most steps averaged across all days we do this:
 
@@ -95,8 +95,8 @@ table(complete.cases(data))
 ##  2304 15264
 ```
 
-We see that 15264 rows are complete (which is the same amount as the dataset where we removed rows with NAs --> only misssing values in column steps). Also we have 2304 cases with missing values.
-For imputation of these values we will use the previously calculated mean of that interval taken from other days. We store the imputed data in a variable called data_imputed.
+We see that 15264 rows are complete (which is the same amount as the dataset where we removed rows with NAs --> only misssing values in the column called *steps*). Also we have 2304 cases with missing values.
+For imputation of these values we will use the previously calculated mean of that interval taken from other days. We store the imputed data in a variable called *data_imputed*.
 
 
 ```r
@@ -109,7 +109,7 @@ for(i in 1:nrow(data)){
 }
 ```
 
-When we create a histogram, the mean and median as before, this time using the imputed data, we see the same results. We used the average values of intervals with data for NAs and as for the calculation of those NAs were not considered we now have more (of the same) data.
+When we create a histogram, the mean and median as before, this time using the imputed data, we see the same results. We used the average values of intervals with data for NAs, and as for the calculation of those NAs were not considered we now have more (of the same) data.
 
 
 ```r
@@ -117,7 +117,7 @@ sum_per_day_imputed <- tapply(data_imputed$steps, data_imputed$date, sum)
 hist(sum_per_day_imputed, main = "Histogram of steps per day (imputed)", xlab = "Steps per day")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](PA1_template_files/figure-html/Histogram_of_steps_per_day_imputed-1.png)<!-- -->
 
 ```r
 mean(sum_per_day)
@@ -163,7 +163,7 @@ interval_mean_steps_imputed_weekday <- tapply(subset_weekdays$steps, subset_week
 interval_mean_steps_imputed_weekend <- tapply(subset_weekend$steps, subset_weekend$interval, mean)
 ```
 
-lastly we have to plot the data. Lattice nicely splits data according to groups so we'll use that. We need to specify a usable datadrame for that so  we create ist out of the previouly prepared subsets of weekday and weekend data. As the column Interval isn't numeric we change that, And finally we plot the data.
+Lastly we have to plot the data. Lattice nicely splits data according to groups so we'll use that. We need to specify a usable datadrame for that so  we create ist out of the previouly prepared subsets of weekday and weekend data. As the column Interval isn't numeric we change that, And finally we plot the data.
 
 
 ```r
@@ -180,9 +180,10 @@ df_interval_days$INTERVAL <- as.numeric(df_interval_days$INTERVAL)
 xyplot(MEAN_STEPS ~ INTERVAL | GROUP, data = df_interval_days,
        type = "l", 
        ylab = "step count",
-       xlab = "Interval start minute")
+       xlab = "Interval start minute",
+       main = "Step count split by day group")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](PA1_template_files/figure-html/Step_count_split_by_day_group-1.png)<!-- -->
 
 Analysis done!
